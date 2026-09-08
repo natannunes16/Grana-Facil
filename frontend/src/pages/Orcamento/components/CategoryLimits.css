@@ -1,0 +1,203 @@
+.gf-category-limits {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.gf-limits-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gf-limits-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gf-limits-title h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--color-text-main);
+}
+
+.gf-limits-title .badge {
+  background-color: var(--color-bg-input);
+  color: var(--color-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+}
+
+.gf-limits-filters {
+  display: flex;
+  gap: 8px;
+}
+
+.gf-limits-filters button {
+  background: transparent;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+}
+
+.gf-limits-filters button.active {
+  background: white;
+  box-shadow: var(--shadow-sm);
+  color: var(--color-text-main);
+}
+
+.gf-limits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.gf-limit-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.gf-limit-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.gf-limit-card-header .title-area {
+  display: flex;
+  gap: 12px;
+}
+
+.gf-limit-card-header .icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-wrap.bg-green { background-color: #E6F7F0; color: var(--color-primary); }
+.icon-wrap.bg-blue { background-color: #E6F0FF; color: var(--color-secondary); }
+
+.gf-limit-card-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.gf-limit-card-header .desc {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+.status-badge.success { background-color: #E6F7F0; color: var(--color-primary); }
+.status-badge.warning { background-color: #E6F0FF; color: var(--color-secondary); }
+
+.status-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.status-badge.success .dot { background-color: var(--color-primary); }
+.status-badge.warning .dot { background-color: var(--color-secondary); }
+
+.gf-limit-metrics {
+  display: flex;
+  background-color: var(--color-bg-input);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.metric-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metric-col .label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.metric-col .val {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+.metric-col .val.blue { color: var(--color-secondary); }
+.metric-col .val.green { color: var(--color-primary); }
+
+.gf-limit-progress-area {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+}
+.progress-labels .label { color: var(--color-text-muted); }
+.progress-labels strong { font-weight: 700; color: var(--color-text-main); }
+.progress-labels strong.blue { color: var(--color-secondary); }
+
+.progress-bar-bg {
+  width: 100%;
+  height: 8px;
+  background-color: var(--color-bg-input);
+  border-radius: var(--radius-pill);
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+}
+.progress-fill.green { background-color: var(--color-primary); }
+.progress-fill.blue { background-color: var(--color-secondary); }
+
+.gf-limit-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px dashed var(--color-border);
+}
+
+.footer-msg {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.edit-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: var(--color-secondary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+.edit-btn:hover { text-decoration: underline; }

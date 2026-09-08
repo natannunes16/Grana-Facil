@@ -1,0 +1,70 @@
+.gf-cat-summary-area {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.gf-cat-summary-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+}
+
+.gf-cat-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gf-cat-icon-wrapper.folder { background-color: rgba(0, 184, 107, 0.1); }
+.gf-cat-icon-wrapper.red { background-color: rgba(229, 62, 62, 0.1); }
+.gf-cat-icon-wrapper.green { background-color: rgba(0, 184, 107, 0.1); }
+
+.gf-cat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.gf-cat-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.gf-cat-value-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gf-cat-value-row strong {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.gf-cat-badge {
+  background-color: #E6F7F0;
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+}
+
+.gf-cat-desc {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+.gf-cat-desc.green {
+  color: var(--color-primary);
+}

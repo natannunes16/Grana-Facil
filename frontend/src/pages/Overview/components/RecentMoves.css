@@ -1,0 +1,117 @@
+.gf-recent-moves-card {
+  padding: 24px;
+}
+
+.gf-rm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.gf-rm-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gf-rm-title h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.gf-rm-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+.gf-rm-link:hover { text-decoration: underline; }
+
+.gf-rm-filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.gf-rm-filters button {
+  background: var(--color-bg-input);
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+.gf-rm-filters button.active {
+  background: var(--color-text-main);
+  color: white;
+}
+
+.gf-rm-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.gf-rm-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.gf-rm-item:last-child {
+  border-bottom: none;
+}
+
+.gf-rm-item-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.gf-rm-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gf-rm-icon-box.in { background-color: #E6F7F0; color: var(--color-primary); }
+.gf-rm-icon-box.out { background-color: #E6F0FF; color: var(--color-secondary); }
+
+.gf-rm-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.gf-rm-info strong { font-size: 0.875rem; color: var(--color-text-main); }
+.gf-rm-info span { font-size: 0.75rem; color: var(--color-text-muted); display: flex; align-items: center; gap: 4px; }
+
+.cat-pill {
+  color: var(--color-secondary) !important;
+  font-weight: 600;
+}
+.cat-pill .dot {
+  width: 4px;
+  height: 4px;
+  background-color: var(--color-secondary);
+  border-radius: 50%;
+}
+
+.gf-rm-item-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.gf-rm-item-right strong { font-size: 1rem; }
+.gf-rm-item-right strong.in { color: var(--color-primary); }
+.gf-rm-item-right strong.out { color: var(--color-text-main); }
+
+.gf-rm-item-right span { font-size: 0.75rem; color: var(--color-text-muted); }

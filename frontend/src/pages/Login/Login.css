@@ -1,0 +1,167 @@
+.gf-login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background-color: #f7f9fb;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes floatAnimation {
+  0% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+  100% { transform: translateY(0px) scale(1); }
+}
+
+.gf-login-wave-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(-45deg, #00B86B, #005F73, #073b45, #008f53);
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.gf-login-wave-bg::before,
+.gf-login-wave-bg::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+  animation: floatAnimation 12s ease-in-out infinite;
+}
+
+.gf-login-wave-bg::before {
+  width: 50vw;
+  height: 50vw;
+  background: rgba(0, 255, 150, 0.2);
+  top: -10%;
+  left: -10%;
+}
+
+.gf-login-wave-bg::after {
+  width: 60vw;
+  height: 60vw;
+  background: rgba(0, 150, 255, 0.2);
+  bottom: -20%;
+  right: -10%;
+  animation-delay: -6s;
+}
+
+.gf-login-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  padding: 48px;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.5);
+}
+
+.gf-login-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.gf-login-logo-img {
+  height: 96px;
+  width: auto;
+  max-width: 100%;
+  margin-bottom: 24px;
+  object-fit: contain;
+}
+
+.gf-login-header h1 {
+  font-size: 1.5rem;
+  color: var(--color-text-main);
+  margin-bottom: 8px;
+}
+
+.gf-login-header p {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.gf-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.gf-password-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gf-password-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gf-password-header .gf-input-label {
+  margin: 0;
+}
+
+.gf-forgot-password {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-secondary);
+}
+
+.gf-forgot-password:hover {
+  text-decoration: underline;
+}
+
+.gf-login-btn {
+  margin-top: 12px;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(0, 184, 107, 0.2);
+  transition: all 0.3s ease;
+}
+
+.gf-login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 184, 107, 0.3);
+}
+
+.gf-login-toggle {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.gf-login-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+}
+
+.gf-login-toggle-btn:hover {
+  text-decoration: underline;
+}

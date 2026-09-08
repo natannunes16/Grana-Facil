@@ -1,0 +1,128 @@
+.gf-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+.gf-modal-content {
+  background: var(--color-bg-card);
+  width: 100%;
+  max-width: 480px;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gf-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.gf-modal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--color-text-main);
+}
+
+.gf-modal-close {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.gf-modal-close:hover {
+  background: var(--color-bg-input);
+  color: var(--color-text-main);
+}
+
+.gf-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.gf-radio-group {
+  display: flex;
+  gap: 12px;
+}
+
+.gf-radio-card {
+  flex: 1;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.gf-radio-card input {
+  display: none;
+}
+
+.gf-radio-card.selected.out {
+  background: rgba(229, 62, 62, 0.1);
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+.gf-radio-card.selected.in {
+  background: rgba(0, 184, 107, 0.1);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.gf-emoji-picker {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  background: var(--color-bg-input);
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.gf-emoji-btn {
+  background: none;
+  border: 2px solid transparent;
+  font-size: 1.5rem;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gf-emoji-btn:hover {
+  background: white;
+}
+
+.gf-emoji-btn.selected {
+  background: white;
+  border-color: var(--color-primary);
+}
+
+.gf-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 12px;
+}

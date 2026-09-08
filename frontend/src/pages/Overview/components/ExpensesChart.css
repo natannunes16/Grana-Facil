@@ -1,0 +1,136 @@
+.gf-expenses-chart-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.gf-ec-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.gf-ec-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gf-ec-title h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--color-text-main);
+}
+
+.gf-ec-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+}
+
+.gf-ec-chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.gf-donut-chart {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #00C16E 0% 38.5%,
+    #005F73 38.5% 72.9%,
+    #1A202C 72.9% 89.4%,
+    #7EC8E3 89.4% 100%
+  );
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gf-donut-inner {
+  width: 160px;
+  height: 160px;
+  background-color: var(--color-bg-card);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.gf-donut-inner .label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.gf-donut-inner .value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 4px;
+}
+
+.gf-donut-inner .pct {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.gf-ec-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gf-legend-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gf-legend-item .left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gf-legend-item .left .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.gf-legend-item .left .name {
+  font-size: 0.875rem;
+  color: var(--color-text-main);
+  font-weight: 500;
+}
+
+.gf-legend-item .right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.875rem;
+}
+
+.gf-legend-item .right .pct {
+  color: var(--color-text-muted);
+  width: 40px;
+  text-align: right;
+}
+
+.gf-legend-item .right .val {
+  font-weight: 700;
+  color: var(--color-text-main);
+  width: 80px;
+  text-align: right;
+}

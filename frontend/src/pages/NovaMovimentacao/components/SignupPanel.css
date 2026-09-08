@@ -1,0 +1,191 @@
+.gf-signup-panel-area {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.gf-signup-card {
+  padding: 32px;
+}
+
+.gf-signup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.gf-signup-title {
+  display: flex;
+  gap: 12px;
+}
+
+.gf-signup-title .icon {
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gf-signup-title .subtitle {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  letter-spacing: 0.5px;
+}
+
+.gf-signup-title h2 {
+  font-size: 1.25rem;
+  margin: 0;
+  color: var(--color-text-main);
+}
+
+.gf-step-badge {
+  background-color: #E6F0FF;
+  color: var(--color-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  line-height: 1.2;
+}
+
+.gf-signup-desc {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.gf-signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gf-password-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.password-strength {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.password-strength .bars {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  margin-right: 12px;
+}
+
+.password-strength .bar {
+  height: 4px;
+  background-color: var(--color-border);
+  flex: 1;
+  border-radius: var(--radius-pill);
+}
+
+.password-strength .bar.green {
+  background-color: var(--color-primary);
+}
+
+.strength-text {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.gf-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  margin: 8px 0;
+}
+
+.gf-checkbox-label input {
+  display: none;
+}
+
+.checkmark {
+  width: 18px;
+  height: 18px;
+  background-color: var(--color-primary);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.gf-checkbox-label .text {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.gf-login-link {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin-top: 8px;
+}
+
+.gf-login-link a {
+  font-weight: 600;
+  color: var(--color-secondary);
+}
+.gf-login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Privacy Card */
+.gf-privacy-card {
+  padding: 24px;
+}
+
+.gf-privacy-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.gf-privacy-header strong {
+  font-size: 0.875rem;
+  color: var(--color-text-main);
+}
+
+.gf-privacy-card p {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.gf-privacy-badges {
+  display: flex;
+  gap: 16px;
+}
+
+.gf-privacy-badges span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+}

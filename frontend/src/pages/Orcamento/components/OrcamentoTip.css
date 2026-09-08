@@ -1,0 +1,45 @@
+.gf-orc-tip-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: linear-gradient(135deg, #F0F4FF 0%, #E6F0FF 100%);
+  border: none;
+  padding: 24px 32px;
+}
+
+.gf-orc-tip-icon {
+  width: 56px;
+  height: 56px;
+  background-color: white;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.gf-orc-tip-content {
+  flex: 1;
+}
+
+.gf-orc-tip-content h3 {
+  font-size: 1.1rem;
+  margin: 0 0 4px 0;
+  color: var(--color-text-main);
+}
+
+.gf-orc-tip-content p {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.gf-orc-tip-badge {
+  background-color: #E6F7F0;
+  color: var(--color-primary);
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 0.875rem;
+}

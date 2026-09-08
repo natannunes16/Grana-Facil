@@ -1,0 +1,17 @@
+.gf-overview-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.gf-overview-content {
+  padding: 32px 40px;
+  flex: 1;
+}
+
+.gf-overview-grid-bottom {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+  align-items: flex-start;
+}

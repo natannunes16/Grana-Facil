@@ -1,0 +1,10 @@
+.gf-relatorios-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.gf-relatorios-content {
+  padding: 32px 40px;
+  flex: 1;
+}

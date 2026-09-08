@@ -1,0 +1,6 @@
+.gf-card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: 24px;
+}

@@ -1,0 +1,61 @@
+.gf-fin-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.gf-fin-card {
+  padding: 24px;
+}
+
+.gf-fin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.gf-fin-header .label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  letter-spacing: 0.5px;
+}
+
+.icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-wrap.bg-green-light { background-color: #E6F7F0; }
+.icon-wrap.bg-blue-light { background-color: #E6F0FF; }
+
+.gf-fin-amount {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+.gf-fin-amount .currency { font-size: 1.1rem; font-weight: 700; color: var(--color-text-muted); }
+.gf-fin-amount .value { font-size: 2rem; font-weight: 700; color: var(--color-text-main); letter-spacing: -1px; }
+
+.gf-fin-footer {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gf-fin-footer .badge {
+  padding: 4px 8px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+.gf-fin-footer .badge.green { background-color: #E6F7F0; color: var(--color-primary); }
+.gf-fin-footer .badge.blue { background-color: #E6F0FF; color: var(--color-secondary); }

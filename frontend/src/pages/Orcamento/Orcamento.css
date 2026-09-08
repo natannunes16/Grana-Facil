@@ -1,0 +1,10 @@
+.gf-orcamento-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.gf-orcamento-content {
+  padding: 32px 40px;
+  flex: 1;
+}

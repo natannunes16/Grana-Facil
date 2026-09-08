@@ -1,0 +1,110 @@
+.gf-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.gf-cat-item-card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  gap: 16px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.gf-cat-item-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.gf-cat-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.gf-cat-item-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gf-cat-item-icon.bg-blue { background-color: #F0F4F8; }
+.gf-cat-item-icon.bg-green { background-color: #E6F7F0; }
+
+.emoji-icon {
+  font-size: 1.5rem;
+}
+
+.gf-cat-item-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.gf-cat-item-actions .icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+.gf-cat-item-actions .icon-btn:hover { color: var(--color-text-main); }
+
+.gf-cat-item-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gf-cat-item-title h3 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.gf-cat-type-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+.gf-cat-type-badge.blue {
+  background-color: #E6F0FF;
+  color: var(--color-secondary);
+}
+.gf-cat-type-badge.green {
+  background-color: #E6F7F0;
+  color: var(--color-primary);
+}
+
+.gf-cat-item-moves {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.gf-cat-item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--color-border);
+}
+
+.gf-cat-item-footer .label {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.gf-cat-item-footer .value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+.gf-cat-item-footer .value.green {
+  color: var(--color-primary);
+}

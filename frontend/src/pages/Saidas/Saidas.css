@@ -1,0 +1,10 @@
+.gf-saidas-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.gf-saidas-content {
+  padding: 32px 40px;
+  flex: 1;
+}

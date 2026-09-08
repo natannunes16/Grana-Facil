@@ -1,0 +1,72 @@
+.gf-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.gf-input-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-main);
+}
+
+.gf-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.gf-input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  background-color: var(--color-bg-input);
+  color: var(--color-text-main);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.gf-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background-color: var(--color-bg-card);
+  box-shadow: 0 0 0 3px rgba(0, 184, 107, 0.1);
+}
+
+.gf-input.with-left-icon {
+  padding-left: 44px;
+}
+
+.gf-input.with-right-icon {
+  padding-right: 44px;
+}
+
+.gf-input-icon {
+  position: absolute;
+  pointer-events: none;
+}
+
+.gf-input-icon.left {
+  left: 14px;
+}
+
+.gf-input-icon-btn {
+  position: absolute;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.gf-input-icon-btn.right {
+  right: 12px;
+}
+
+.gf-input-icon-btn:hover {
+  opacity: 0.7;
+}

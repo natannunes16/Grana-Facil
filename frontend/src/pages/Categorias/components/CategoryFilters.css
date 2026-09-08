@@ -1,0 +1,56 @@
+.gf-cat-filters-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.gf-cat-tabs {
+  display: flex;
+  background-color: white;
+  border-radius: var(--radius-pill);
+  padding: 4px;
+  box-shadow: var(--shadow-sm);
+}
+
+.gf-cat-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.gf-cat-tab:hover {
+  background-color: var(--color-bg-input);
+}
+
+.gf-cat-tab.active {
+  background-color: white;
+  color: var(--color-text-main);
+  box-shadow: var(--shadow-sm);
+}
+
+.gf-cat-tab .count {
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.gf-cat-order {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: var(--color-text-main);
+}
+
+.gf-cat-order span {
+  color: var(--color-text-muted);
+}

@@ -1,0 +1,17 @@
+.gf-nova-movimentacao-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.gf-nm-content {
+  padding: 32px 40px;
+  flex: 1;
+}
+
+.gf-nm-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+  align-items: flex-start;
+}
