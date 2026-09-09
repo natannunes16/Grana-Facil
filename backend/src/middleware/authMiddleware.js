@@ -8,16 +8,16 @@ const protect = async (req, res, next) => {
       token = req.headers.authorization.split(' ')[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findById(decoded.id).select('-password');
-      next();
+      return next();
     } catch (error) {
       console.error(error);
       res.status(401);
-      throw new Error('Não autorizado, falha no token');
+      return next(new Error('Não autorizado, falha no token'));
     }
   }
   if (!token) {
     res.status(401);
-    throw new Error('Não autorizado, nenhum token fornecido');
+    return next(new Error('Não autorizado, nenhum token fornecido'));
   }
 };
 
