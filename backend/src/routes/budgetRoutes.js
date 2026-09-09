@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getBudgets, createBudget, deleteBudget } = require('../controllers/budgetController');
+const { getBudgets, createBudget, deleteBudget, updateBudget } = require('../controllers/budgetController');
 const { protect } = require('../middleware/authMiddleware');
 
 router.route('/')
@@ -8,6 +8,7 @@ router.route('/')
   .post(protect, createBudget);
 
 router.route('/:id')
-  .delete(protect, deleteBudget);
+  .delete(protect, deleteBudget)
+  .put(protect, updateBudget);
 
 module.exports = router;

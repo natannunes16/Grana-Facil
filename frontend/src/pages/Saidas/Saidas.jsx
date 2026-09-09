@@ -15,7 +15,7 @@ const Saidas = () => {
         title="Saídas" 
         subtitle="Acompanhe todos os gastos, pagamentos e despesas do mês."
         primaryActionLabel="Adicionar saída"
-        onPrimaryAction={() => navigate('/nova-movimentacao')}
+        onPrimaryAction={() => navigate('/nova-movimentacao', { state: { defaultType: 'out' } })}
       />
 
       <div className="gf-saidas-content">

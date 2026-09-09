@@ -1,0 +1,209 @@
+.gf-config-page {
+  padding: 32px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gf-config-content {
+  display: flex;
+  gap: 32px;
+  margin-top: 32px;
+  align-items: flex-start;
+}
+
+.gf-config-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gf-config-tab {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--color-text-light);
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.gf-config-tab:hover {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-main);
+}
+
+.gf-config-tab.active {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.gf-config-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.gf-config-card {
+  padding: 32px;
+}
+
+.gf-config-section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 8px;
+}
+
+.gf-config-section-subtitle {
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+.gf-config-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 600px;
+}
+
+.gf-config-row {
+  display: flex;
+  gap: 16px;
+}
+
+.gf-config-row > * {
+  flex: 1;
+}
+
+.gf-config-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border);
+}
+
+.gf-bank-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+}
+
+.gf-bank-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.gf-bank-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.gf-bank-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.gf-bank-icon.nubank { background-color: #8A05BE; color: white; }
+.gf-bank-icon.itau { background-color: #EC7000; color: white; }
+.gf-bank-icon.inter { background-color: #FF7A00; color: white; }
+
+.gf-bank-details strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--color-text-main);
+  margin-bottom: 4px;
+}
+
+.gf-bank-details span {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+}
+
+.gf-bank-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+}
+
+.gf-bank-status.connected {
+  background-color: var(--color-success-light);
+  color: var(--color-success);
+}
+
+.gf-bank-status.disconnected {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-light);
+}
+
+.gf-security-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gf-security-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+}
+
+.gf-security-item-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.gf-security-item-icon {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.gf-security-item-text strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+  margin-bottom: 2px;
+}
+
+.gf-security-item-text p {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  margin: 0;
+}

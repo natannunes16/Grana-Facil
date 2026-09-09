@@ -40,11 +40,36 @@ const deleteCategory = async (req, res, next) => {
       res.status(401);
       throw new Error('Não autorizado');
     }
-    await category.remove();
+    await category.deleteOne();
     res.json({ id: req.params.id });
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = { getCategories, createCategory, deleteCategory };
+const updateCategory = async (req, res, next) => {
+  try {
+    const { name, type, icon } = req.body;
+    
+    let category = await Category.findById(req.params.id);
+    if (!category) {
+      res.status(404);
+      throw new Error('Categoria não encontrada');
+    }
+    if (category.user.toString() !== req.user.id) {
+      res.status(401);
+      throw new Error('Não autorizado');
+    }
+
+    category.name = name || category.name;
+    category.type = type || category.type;
+    category.icon = icon !== undefined ? icon : category.icon;
+
+    await category.save();
+    res.json(category);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getCategories, createCategory, deleteCategory, updateCategory };

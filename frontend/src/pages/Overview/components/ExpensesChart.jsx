@@ -1,9 +1,31 @@
 import React from 'react';
 import Card from '../../../components/Card/Card';
 import { PieChart } from 'lucide-react';
+import { useFinancial } from '../../../context/FinancialContext';
 import './ExpensesChart.css';
 
 const ExpensesChart = () => {
+  const { formatCurrency, expensesByCategory, totals } = useFinancial();
+
+  const expenses = expensesByCategory || [];
+  const totalOut = totals?.totalOut || 0;
+
+  // Calculate conic-gradient for the CSS pie chart
+  const colors = ['#00C16E', '#005F73', '#1A202C', '#7EC8E3', '#F56565', '#ED8936', '#ECC94B', '#48BB78', '#38B2AC', '#4299E1', '#667EEA', '#9F7AEA', '#ED64A6'];
+  
+  let currentPercentage = 0;
+  const gradientStops = expenses.map((exp, index) => {
+    const start = currentPercentage;
+    const pct = totalOut > 0 ? (exp.value / totalOut) * 100 : 0;
+    currentPercentage += pct;
+    const color = colors[index % colors.length];
+    return `${color} ${start}% ${currentPercentage}%`;
+  });
+  
+  const conicGradient = gradientStops.length > 0 
+    ? `conic-gradient(${gradientStops.join(', ')})`
+    : 'conic-gradient(#e2e8f0 0% 100%)';
+
   return (
     <Card className="gf-expenses-chart-card">
       <div className="gf-ec-header">
@@ -13,61 +35,38 @@ const ExpensesChart = () => {
           </div>
           <h3>Onde estou gastando?</h3>
         </div>
-        <span className="gf-ec-badge">4 Categorias</span>
+        <span className="gf-ec-badge">{expenses.length} Categorias</span>
       </div>
 
       <div className="gf-ec-chart-container">
         {/* CSS Donut Chart */}
-        <div className="gf-donut-chart">
+        <div className="gf-donut-chart" style={{ background: conicGradient }}>
           <div className="gf-donut-inner">
             <span className="label">TOTAL GASTO</span>
-            <span className="value">R$ 727,53</span>
-            <span className="pct">50,5% do total</span>
+            <span className="value">R$ {formatCurrency(totalOut)}</span>
+            <span className="pct">100% do total</span>
           </div>
         </div>
       </div>
 
       <div className="gf-ec-legend">
-        <div className="gf-legend-item">
-          <div className="left">
-            <span className="dot" style={{ backgroundColor: '#00C16E' }}></span>
-            <span className="name">🛒 Mercado</span>
-          </div>
-          <div className="right">
-            <span className="pct">38,5%</span>
-            <span className="val">R$ 280,00</span>
-          </div>
-        </div>
-        <div className="gf-legend-item">
-          <div className="left">
-            <span className="dot" style={{ backgroundColor: '#005F73' }}></span>
-            <span className="name">🏠 Aluguel</span>
-          </div>
-          <div className="right">
-            <span className="pct">34,4%</span>
-            <span className="val">R$ 250,00</span>
-          </div>
-        </div>
-        <div className="gf-legend-item">
-          <div className="left">
-            <span className="dot" style={{ backgroundColor: '#1A202C' }}></span>
-            <span className="name">🎓 Faculdade</span>
-          </div>
-          <div className="right">
-            <span className="pct">16,5%</span>
-            <span className="val">R$ 120,00</span>
-          </div>
-        </div>
-        <div className="gf-legend-item">
-          <div className="left">
-            <span className="dot" style={{ backgroundColor: '#7EC8E3' }}></span>
-            <span className="name">🚗 Transporte</span>
-          </div>
-          <div className="right">
-            <span className="pct">10,6%</span>
-            <span className="val">R$ 77,53</span>
-          </div>
-        </div>
+        {expenses.length === 0 && <div className="gf-legend-item"><span className="name">Nenhum gasto registrado</span></div>}
+        {expenses.map((exp, index) => {
+          const pct = totalOut > 0 ? ((exp.value / totalOut) * 100).toFixed(1) : 0;
+          const color = colors[index % colors.length];
+          return (
+            <div className="gf-legend-item" key={index}>
+              <div className="left">
+                <span className="dot" style={{ backgroundColor: color }}></span>
+                <span className="name">{exp.name}</span>
+              </div>
+              <div className="right">
+                <span className="pct">{pct}%</span>
+                <span className="val">R$ {formatCurrency(exp.value)}</span>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </Card>
   );

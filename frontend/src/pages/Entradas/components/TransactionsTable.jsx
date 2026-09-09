@@ -5,7 +5,7 @@ import { useFinancial } from '../../../context/FinancialContext';
 import './TransactionsTable.css';
 
 const TransactionsTable = () => {
-  const { transactions, formatCurrency, deleteTransaction } = useFinancial();
+  const { transactions, formatCurrency, deleteTransaction, editTransaction } = useFinancial();
   const inTransactions = transactions.filter(t => t.type === 'in');
 
   const handleDelete = (id) => {
@@ -73,7 +73,12 @@ const TransactionsTable = () => {
                   </td>
                   <td>
                     <div className="gf-td-actions">
-                      <button className="action-btn"><Edit2 size={16} /></button>
+                      <button className="action-btn" onClick={() => {
+                        const newVal = window.prompt("Novo valor para a transação:", t.val);
+                        if (newVal !== null && newVal !== "") {
+                          editTransaction(t.id, { ...t, val: Number(newVal) });
+                        }
+                      }}><Edit2 size={16} /></button>
                       <button className="action-btn" onClick={() => handleDelete(t.id)}><Trash2 size={16} /></button>
                     </div>
                   </td>

@@ -13,6 +13,7 @@ import Orcamento from './pages/Orcamento/Orcamento';
 import Overview from './pages/Overview/Overview';
 import Saidas from './pages/Saidas/Saidas';
 import Relatorios from './pages/Relatorios/Relatorios';
+import Configuracoes from './pages/Configuracoes/Configuracoes';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:5000/graphql',
@@ -58,7 +59,7 @@ function App() {
                 <Route path="/orcamento" element={<Orcamento />} />
                 <Route path="/categorias" element={<Categorias />} />
                 <Route path="/relatorios" element={<Relatorios />} />
-                <Route path="/configuracoes" element={<div>Configurações (Em breve)</div>} />
+                <Route path="/configuracoes" element={<Configuracoes />} />
               </Route>
             </Routes>
           </BrowserRouter>

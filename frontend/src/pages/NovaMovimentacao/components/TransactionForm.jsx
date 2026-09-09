@@ -4,14 +4,15 @@ import Input from '../../../components/Input/Input';
 import Button from '../../../components/Button/Button';
 import { PlusCircle, ArrowDownCircle, ArrowUpCircle, Calendar, Hash, RefreshCcw, Briefcase, ShoppingCart, Home } from 'lucide-react';
 import { useFinancial } from '../../../context/FinancialContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './TransactionForm.css';
 
 const TransactionForm = () => {
   const { addTransaction, categories, transactions } = useFinancial();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const [type, setType] = useState('entrada'); // 'entrada' ou 'saida'
+  const [type, setType] = useState(location.state?.defaultType === 'out' ? 'saida' : 'entrada'); // 'entrada' ou 'saida'
   const [val, setVal] = useState('');
   const [desc, setDesc] = useState('');
   const [date, setDate] = useState('');
@@ -125,13 +126,32 @@ const TransactionForm = () => {
           <div className="gf-tf-row">
             <div className="gf-input-container">
               <label className="gf-input-label">CATEGORIA</label>
-              <div className="gf-input-wrapper">
-                <select className="gf-input" value={cat} onChange={(e) => setCat(e.target.value)} required>
-                  <option value="" disabled>Selecione uma categoria</option>
-                  {categories.map((c, i) => (
-                    <option key={i} value={c.name}>{c.icon} {c.name}</option>
-                  ))}
-                </select>
+              <div className="gf-input-wrapper" style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
+                {categories.length === 0 ? (
+                  <Button 
+                    type="button" 
+                    onClick={() => navigate('/categorias')} 
+                    style={{backgroundColor: 'var(--color-primary)', color: 'white', padding: '10px'}}
+                  >
+                    + Criar categoria nova
+                  </Button>
+                ) : (
+                  <>
+                    <select className="gf-input" value={cat} onChange={(e) => setCat(e.target.value)} required>
+                      <option value="" disabled>Selecione uma categoria</option>
+                      {categories.map((c, i) => (
+                        <option key={i} value={c.name}>{c.icon} {c.name}</option>
+                      ))}
+                    </select>
+                    <button 
+                      type="button" 
+                      onClick={() => navigate('/categorias')}
+                      style={{background: 'none', border: 'none', color: 'var(--color-primary)', fontSize: '0.85rem', textAlign: 'left', cursor: 'pointer', padding: 0, fontWeight: 600}}
+                    >
+                      + Criar categoria nova
+                    </button>
+                  </>
+                )}
               </div>
             </div>
             <Input 

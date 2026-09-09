@@ -161,6 +161,42 @@ export const FinancialProvider = ({ children }) => {
     }).sort((a, b) => b.value - a.value);
   }, [transactions, budgets]);
 
+  const editTransaction = async (id, updatedTx) => {
+    try {
+      const categoryObj = categories.find(c => c.name === updatedTx.cat);
+      if (!categoryObj) return alert("Categoria inválida");
+      await api.put(`/transacoes/${id}`, {
+        description: updatedTx.name,
+        value: Number(updatedTx.val),
+        type: updatedTx.type,
+        date: updatedTx.date,
+        category: categoryObj.id,
+        paymentMethod: updatedTx.method
+      });
+      fetchData();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const editCategory = async (id, updatedCat) => {
+    try {
+      await api.put(`/categorias/${id}`, updatedCat);
+      fetchData();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const editBudget = async (id, updatedLimit) => {
+    try {
+      await api.put(`/orcamentos/${id}`, { limit: updatedLimit });
+      fetchData();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const contextValue = {
     transactions,
     totals,
@@ -169,9 +205,12 @@ export const FinancialProvider = ({ children }) => {
     budgetLimits: budgets, // Simplified mapping to prevent breaking old UI
     addTransaction,
     deleteTransaction,
+    editTransaction,
     addCategory,
     deleteCategory,
+    editCategory,
     updateBudgetLimit,
+    editBudget,
     formatCurrency
   };
 

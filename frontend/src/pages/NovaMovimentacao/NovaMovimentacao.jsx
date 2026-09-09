@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../../components/Layout/Header';
 import TransactionForm from './components/TransactionForm';
-import SignupPanel from './components/SignupPanel';
+
 import './NovaMovimentacao.css';
 
 const NovaMovimentacao = () => {
@@ -16,11 +16,8 @@ const NovaMovimentacao = () => {
       <div className="gf-nm-content">
         {/* Top Cards seriam adicionados aqui se necessário. Pelo protótipo eles ficam acima, mas a imagem foca no formulário */}
         <div className="gf-nm-grid">
-          <div className="gf-nm-main">
+          <div className="gf-nm-main" style={{maxWidth: '800px', margin: '0 auto'}}>
             <TransactionForm />
-          </div>
-          <div className="gf-nm-sidebar">
-            <SignupPanel />
           </div>
         </div>
       </div>

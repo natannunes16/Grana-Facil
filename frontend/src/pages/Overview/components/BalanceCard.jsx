@@ -2,28 +2,11 @@ import React from 'react';
 import Card from '../../../components/Card/Card';
 import { CheckCircle } from 'lucide-react';
 import { useFinancial } from '../../../context/FinancialContext';
-import { useQuery, gql } from '@apollo/client';
 import './BalanceCard.css';
 
-const GET_DASHBOARD_SUMMARY = gql`
-  query GetDashboardSummary {
-    getDashboardSummary {
-      totals {
-        availableBudget
-        progressPct
-      }
-    }
-  }
-`;
-
 const BalanceCard = () => {
-  const { formatCurrency } = useFinancial();
-  const { data, loading, error } = useQuery(GET_DASHBOARD_SUMMARY);
+  const { formatCurrency, totals } = useFinancial();
 
-  if (loading) return <div style={{padding: '24px'}}>Carregando saldo...</div>;
-  if (error) return <div style={{padding: '24px'}}>Erro ao carregar saldo.</div>;
-
-  const totals = data?.getDashboardSummary?.totals || { availableBudget: 0, progressPct: 0 };
   const progress = totals.progressPct.toFixed(1);
   return (
     <Card className="gf-balance-card">
@@ -34,7 +17,7 @@ const BalanceCard = () => {
         </div>
         <div className="gf-balance-amount">
           <span className="currency">R$</span>
-          <span className="value">{formatCurrency(totals.availableBudget)}</span>
+          <span className="value">{formatCurrency(totals.balance)}</span>
         </div>
         <p className="gf-balance-desc">
           Você ainda pode gastar este mês mantendo a sua meta orçamentária intacta.
@@ -50,7 +33,7 @@ const BalanceCard = () => {
         <div className="gf-health-progress-area">
           <div className="gf-hp-header">
             <span>Orçamento comprometido</span>
-            <strong>{progress}%</strong>
+            <strong>R$ {formatCurrency(totals.totalOut)} ({progress}%)</strong>
           </div>
           <div className="gf-hp-bar-bg">
             <div className="gf-hp-bar-fill" style={{ width: `${progress}%` }}></div>

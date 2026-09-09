@@ -1,9 +1,21 @@
 import React from 'react';
 import Card from '../../../components/Card/Card';
 import { ArrowDownCircle, TrendingUp, Calendar, CheckCircle } from 'lucide-react';
+import { useFinancial } from '../../../context/FinancialContext';
 import './SummaryCards.css';
 
 const SummaryCards = () => {
+  const { transactions, formatCurrency, totals } = useFinancial();
+  const inTransactions = transactions.filter(t => t.type === 'in');
+  const count = inTransactions.length;
+  const totalIn = totals?.totalIn || 0;
+  
+  const media = count > 0 ? totalIn / count : 0;
+  
+  // Fake goal for now since we don't have revenue goals in DB yet
+  const meta = 3000;
+  const pctMeta = meta > 0 ? (totalIn / meta) * 100 : 0;
+
   return (
     <div className="gf-summary-cards">
       {/* Card 1: Total Entradas */}
@@ -14,18 +26,18 @@ const SummaryCards = () => {
           </div>
           <div className="gf-summary-title">
             <span>TOTAL ENTRADAS NO MÊS</span>
-            <div className="gf-summary-badge green"><CheckCircle size={12}/> 1 entrada registrada</div>
+            <div className="gf-summary-badge green"><CheckCircle size={12}/> {count} entrada{count !== 1 ? 's' : ''} registrada{count !== 1 ? 's' : ''}</div>
           </div>
           <div className="gf-summary-tag">Set 2026</div>
         </div>
         <div className="gf-summary-amount">
           <span className="currency">R$</span>
-          <span className="value">1.440,00</span>
+          <span className="value">{formatCurrency(totalIn)}</span>
         </div>
         <div className="gf-summary-footer">
           <TrendingUp size={16} className="trend-icon" />
-          <span>Meta mensal: R$ 3.000,00</span>
-          <span className="percent">48% atingido</span>
+          <span>Meta mensal: R$ {formatCurrency(meta)}</span>
+          <span className="percent">{pctMeta.toFixed(0)}% atingido</span>
         </div>
       </Card>
 
@@ -42,7 +54,7 @@ const SummaryCards = () => {
         </div>
         <div className="gf-summary-amount">
           <span className="currency blue">R$</span>
-          <span className="value">1.440,00</span>
+          <span className="value">{formatCurrency(media)}</span>
         </div>
         <div className="gf-summary-progress-bar">
           <div className="progress blue" style={{ width: '100%' }}></div>

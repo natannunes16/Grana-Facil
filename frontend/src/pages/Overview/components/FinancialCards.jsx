@@ -2,32 +2,12 @@ import React from 'react';
 import Card from '../../../components/Card/Card';
 import { ArrowUpRight, ArrowDownRight, Wallet } from 'lucide-react';
 import { useFinancial } from '../../../context/FinancialContext';
-import { useQuery, gql } from '@apollo/client';
 import './FinancialCards.css';
 
-const GET_DASHBOARD_SUMMARY = gql`
-  query GetDashboardSummary {
-    getDashboardSummary {
-      totals {
-        totalIn
-        totalOut
-        balance
-        totalBudget
-        availableBudget
-        progressPct
-      }
-    }
-  }
-`;
-
 const FinancialCards = () => {
-  const { formatCurrency } = useFinancial();
-  const { data, loading, error } = useQuery(GET_DASHBOARD_SUMMARY);
+  const { formatCurrency, totals } = useFinancial();
 
-  if (loading) return <div style={{padding: '24px'}}>Carregando dashboard...</div>;
-  if (error) return <div style={{padding: '24px'}}>Erro ao carregar dados.</div>;
-
-  const totals = data?.getDashboardSummary?.totals || { totalIn: 0, totalOut: 0, balance: 0, progressPct: 0 };
+  const t = totals || { totalIn: 0, totalOut: 0, balance: 0, progressPct: 0 };
   return (
     <div className="gf-fin-cards">
       <Card className="gf-fin-card">
@@ -39,7 +19,7 @@ const FinancialCards = () => {
         </div>
         <div className="gf-fin-amount">
           <span className="currency">R$</span>
-          <span className="value">{formatCurrency(totals.totalIn)}</span>
+          <span className="value">{formatCurrency(t.totalIn)}</span>
         </div>
         <div className="gf-fin-footer">
           <span className="badge green">+100%</span> da meta atingida
@@ -55,7 +35,7 @@ const FinancialCards = () => {
         </div>
         <div className="gf-fin-amount">
           <span className="currency">R$</span>
-          <span className="value">{formatCurrency(totals.totalOut)}</span>
+          <span className="value">{formatCurrency(t.totalOut)}</span>
         </div>
         <div className="gf-fin-footer">
           <span className="badge blue">4 transações</span> registradas neste mês
@@ -71,10 +51,10 @@ const FinancialCards = () => {
         </div>
         <div className="gf-fin-amount">
           <span className="currency">R$</span>
-          <span className="value">{formatCurrency(totals.balance)}</span>
+          <span className="value">{formatCurrency(t.balance)}</span>
         </div>
         <div className="gf-fin-footer">
-          <span className="badge green">{totals.totalIn ? (100 - totals.progressPct).toFixed(1) : 0}% livre</span> restante no mês
+          <span className="badge green">{t.totalIn ? (100 - t.progressPct).toFixed(1) : 0}% livre</span> restante no mês
         </div>
       </Card>
     </div>

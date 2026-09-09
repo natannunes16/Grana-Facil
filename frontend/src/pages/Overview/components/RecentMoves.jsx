@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '../../../components/Card/Card';
 import { ArrowRight, Wallet, ShoppingCart, Home, GraduationCap, Train } from 'lucide-react';
 import { useFinancial } from '../../../context/FinancialContext';
+import { useNavigate } from 'react-router-dom';
 import './RecentMoves.css';
 
 const ICON_MAP = {
@@ -14,7 +15,17 @@ const ICON_MAP = {
 
 const RecentMoves = () => {
   const { transactions, formatCurrency } = useFinancial();
-  const recentTransactions = [...transactions].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 5);
+  const navigate = useNavigate();
+  const [filter, setFilter] = useState('all');
+
+  const filteredTransactions = transactions.filter(t => {
+    if (filter === 'in') return t.type === 'in';
+    if (filter === 'out') return t.type === 'out';
+    return true;
+  });
+
+  const recentTransactions = [...filteredTransactions].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 5);
+  
   return (
     <Card className="gf-recent-moves-card">
       <div className="gf-rm-header">
@@ -24,16 +35,17 @@ const RecentMoves = () => {
           </div>
           <h2>Últimas movimentações</h2>
         </div>
-        <a href="#" className="gf-rm-link">Ver todas <ArrowRight size={14} /></a>
+        <button onClick={() => navigate('/relatorios')} className="gf-rm-link" style={{background:'none', border:'none', cursor:'pointer', color:'var(--color-primary)', fontWeight:'600', display:'flex', alignItems:'center', gap:'4px'}}>Ver todas <ArrowRight size={14} /></button>
       </div>
 
       <div className="gf-rm-filters">
-        <button className="active">Todas</button>
-        <button>Entradas</button>
-        <button>Saídas</button>
+        <button className={filter === 'all' ? 'active' : ''} onClick={() => setFilter('all')}>Todas</button>
+        <button className={filter === 'in' ? 'active' : ''} onClick={() => setFilter('in')}>Entradas</button>
+        <button className={filter === 'out' ? 'active' : ''} onClick={() => setFilter('out')}>Saídas</button>
       </div>
 
       <div className="gf-rm-list">
+        {recentTransactions.length === 0 && <div style={{textAlign:'center', color:'var(--color-text-muted)'}}>Nenhuma movimentação.</div>}
         {recentTransactions.map(m => {
           const Icon = ICON_MAP[m.cat] || Wallet;
           return (

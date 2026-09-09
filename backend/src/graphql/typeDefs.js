@@ -10,8 +10,15 @@ const typeDefs = gql`
     progressPct: Float!
   }
 
+  type ExpenseCategory {
+    name: String!
+    value: Float!
+    color: String!
+  }
+
   type DashboardSummary {
     totals: DashboardTotals!
+    expensesByCategory: [ExpenseCategory!]!
   }
 
   type Query {
