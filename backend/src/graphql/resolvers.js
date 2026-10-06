@@ -1,5 +1,7 @@
 const Transaction = require('../models/Transaction');
 const Budget = require('../models/Budget');
+const Account = require('../models/Account');
+const Category = require('../models/Category');
 
 const resolvers = {
   Query: {
@@ -59,6 +61,138 @@ const resolvers = {
         },
         expensesByCategory
       };
+    }
+  },
+  Mutation: {
+    createTransaction: async (_, args, context) => {
+      if (!context.user) throw new Error('Not authenticated');
+      const userId = context.user.id;
+
+      const { description, value, type, date, category, account, paymentMethod, tags } = args;
+
+      if (!description || !value || !type || !date || !category) {
+        throw new Error('Preencha os campos obrigatórios');
+      }
+
+      // Valida categoria
+      const catExists = await Category.findOne({ _id: category, user: userId });
+      if (!catExists) {
+        throw new Error('Categoria inválida ou não pertence ao usuário');
+      }
+
+      // Valida conta (se fornecida)
+      let acc;
+      if (account) {
+        acc = await Account.findOne({ _id: account, user: userId });
+        if (!acc) {
+          throw new Error('Conta inválida ou não pertence ao usuário');
+        }
+      }
+
+      const transaction = await Transaction.create({
+        description,
+        value,
+        type,
+        date,
+        category,
+        account,
+        paymentMethod,
+        tags,
+        user: userId
+      });
+
+      if (acc) {
+        if (type === 'in') acc.balance += value;
+        else acc.balance -= value;
+        await acc.save();
+      }
+
+      return transaction;
+    },
+
+    updateTransaction: async (_, args, context) => {
+      if (!context.user) throw new Error('Not authenticated');
+      const userId = context.user.id;
+
+      const { id, description, value, type, date, category, account, paymentMethod, tags } = args;
+
+      let transaction = await Transaction.findById(id);
+      if (!transaction) {
+        throw new Error('Transação não encontrada');
+      }
+      if (transaction.user.toString() !== userId) {
+        throw new Error('Não autorizado');
+      }
+
+      // Revert old account balance if exists
+      if (transaction.account) {
+        const oldAcc = await Account.findById(transaction.account);
+        if (oldAcc) {
+          if (transaction.type === 'in') oldAcc.balance -= transaction.value;
+          else oldAcc.balance += transaction.value;
+          await oldAcc.save();
+        }
+      }
+
+      // Update fields
+      if (description !== undefined) transaction.description = description;
+      if (value !== undefined) transaction.value = value;
+      if (type !== undefined) transaction.type = type;
+      if (date !== undefined) transaction.date = date;
+      if (category !== undefined) {
+        const catExists = await Category.findOne({ _id: category, user: userId });
+        if (!catExists) throw new Error('Categoria inválida ou não pertence ao usuário');
+        transaction.category = category;
+      }
+      if (account !== undefined) {
+        if (account) {
+          const accExists = await Account.findOne({ _id: account, user: userId });
+          if (!accExists) throw new Error('Conta inválida ou não pertence ao usuário');
+        }
+        transaction.account = account;
+      }
+      if (paymentMethod !== undefined) transaction.paymentMethod = paymentMethod;
+      if (tags !== undefined) transaction.tags = tags;
+
+      await transaction.save();
+
+      // Apply new account balance
+      if (transaction.account) {
+        const newAcc = await Account.findOne({ _id: transaction.account, user: userId });
+        if (newAcc) {
+          if (transaction.type === 'in') newAcc.balance += transaction.value;
+          else newAcc.balance -= transaction.value;
+          await newAcc.save();
+        }
+      }
+
+      return transaction;
+    },
+
+    deleteTransaction: async (_, args, context) => {
+      if (!context.user) throw new Error('Not authenticated');
+      const userId = context.user.id;
+      const { id } = args;
+
+      const transaction = await Transaction.findById(id);
+      if (!transaction) {
+        throw new Error('Transação não encontrada');
+      }
+      if (transaction.user.toString() !== userId) {
+        throw new Error('Não autorizado');
+      }
+
+      if (transaction.account) {
+        const acc = await Account.findById(transaction.account);
+        if (acc) {
+          if (transaction.type === 'in') acc.balance -= transaction.value;
+          else acc.balance += transaction.value;
+          await acc.save();
+        }
+      }
+
+      await transaction.deleteOne();
+      return id;
     }
   }
 };

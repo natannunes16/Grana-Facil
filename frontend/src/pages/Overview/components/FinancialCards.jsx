@@ -2,12 +2,33 @@ import React from 'react';
 import Card from '../../../components/Card/Card';
 import { ArrowUpRight, ArrowDownRight, Wallet } from 'lucide-react';
 import { useFinancial } from '../../../context/FinancialContext';
+import { useQuery, gql } from '@apollo/client';
 import './FinancialCards.css';
 
-const FinancialCards = () => {
-  const { formatCurrency, totals } = useFinancial();
+const GET_DASHBOARD_SUMMARY = gql`
+  query GetDashboardSummary {
+    getDashboardSummary {
+      totals {
+        totalIn
+        totalOut
+        balance
+        progressPct
+      }
+    }
+  }
+`;
 
-  const t = totals || { totalIn: 0, totalOut: 0, balance: 0, progressPct: 0 };
+const FinancialCards = () => {
+  const { formatCurrency } = useFinancial();
+  const { data, loading, error } = useQuery(GET_DASHBOARD_SUMMARY, {
+    fetchPolicy: 'network-only'
+  });
+
+  const t = data?.getDashboardSummary?.totals || { totalIn: 0, totalOut: 0, balance: 0, progressPct: 0 };
+
+  if (loading) return <div>Carregando...</div>;
+  if (error) return <div>Erro ao carregar dados do dashboard.</div>;
+
   return (
     <div className="gf-fin-cards">
       <Card className="gf-fin-card">

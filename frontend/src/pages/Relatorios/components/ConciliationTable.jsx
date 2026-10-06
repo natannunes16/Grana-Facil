@@ -12,7 +12,7 @@ const ICON_MAP = {
 };
 
 const ConciliationTable = () => {
-  const { transactions, totals, formatCurrency } = useFinancial();
+  const { transactions, categories, totals, formatCurrency } = useFinancial();
 
   return (
     <Card style={{ padding: '0', overflow: 'hidden' }}>
@@ -38,13 +38,15 @@ const ConciliationTable = () => {
         </thead>
         <tbody>
           {transactions.map(t => {
-            const Icon = ICON_MAP[t.cat] || Wallet;
+            const catObj = categories.find(c => c.name === t.cat);
+            const displayIcon = catObj?.icon || '💰';
+            
             return (
               <tr key={t.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
                 <td style={{ padding: '16px 24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <div style={{ width: 32, height: 32, borderRadius: 8, backgroundColor: '#F0F4F8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <Icon size={16} color="var(--color-secondary)" />
+                    <div style={{ width: 32, height: 32, borderRadius: 8, backgroundColor: '#F0F4F8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>
+                      {displayIcon}
                     </div>
                     <span style={{ fontWeight: 600, fontSize: '0.875rem', color: 'var(--color-text-main)' }}>{t.name}</span>
                   </div>

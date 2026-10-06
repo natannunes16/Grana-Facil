@@ -22,7 +22,7 @@ export const FinancialProvider = ({ children }) => {
         api.get('/categorias'),
         api.get('/orcamentos')
       ]);
-      setTransactions(txRes.data.map(t => ({
+      const fetchedTransactions = txRes.data.map(t => ({
         id: t._id,
         name: t.description,
         date: t.date,
@@ -30,15 +30,22 @@ export const FinancialProvider = ({ children }) => {
         val: t.value,
         type: t.type,
         method: t.paymentMethod
-      })));
-      setCategories(catRes.data.map(c => ({
-        id: c._id,
-        name: c.name,
-        type: c.type,
-        icon: c.icon,
-        moves: 0, // Should calculate
-        value: 0
-      })));
+      }));
+      setTransactions(fetchedTransactions);
+
+      setCategories(catRes.data.map(c => {
+        const catTx = fetchedTransactions.filter(tx => tx.cat === c.name);
+        const totalValue = catTx.reduce((acc, curr) => acc + curr.val, 0);
+
+        return {
+          id: c._id,
+          name: c.name,
+          type: c.type,
+          icon: c.icon,
+          moves: catTx.length,
+          value: totalValue
+        };
+      }));
       setBudgets(budRes.data.map(b => ({
         id: b._id,
         category: b.category?.name,
@@ -110,11 +117,20 @@ export const FinancialProvider = ({ children }) => {
 
   const updateBudgetLimit = async (categoryName, newLimit) => {
     try {
-      const cat = categories.find(c => c.name === categoryName);
-      if (!cat) return;
-      const budget = budgets.find(b => b.category === categoryName);
+      let cat = categories.find(c => c.name === categoryName);
+      
+      if (!cat) {
+        const res = await api.post('/categorias', {
+          name: categoryName || 'Geral',
+          type: 'Despesa',
+          icon: 'tag'
+        });
+        cat = { id: res.data._id, name: res.data.name };
+      }
+
+      const budget = budgets.find(b => b.category === cat.name);
       if (budget) {
-        // Since we don't have PUT on budget in this simplified frontend context, ideally we'd PUT /orcamentos/:id
+        await api.put(`/orcamentos/${budget.id}`, { limit: newLimit });
       } else {
         await api.post('/orcamentos', {
           limit: newLimit,
@@ -122,9 +138,11 @@ export const FinancialProvider = ({ children }) => {
           category: cat.id
         });
       }
-      fetchData();
+      await fetchData();
+      return true;
     } catch (err) {
       console.error(err);
+      return false;
     }
   };
 

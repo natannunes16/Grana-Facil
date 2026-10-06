@@ -12,9 +12,9 @@ const getCategories = async (req, res, next) => {
 const createCategory = async (req, res, next) => {
   try {
     const { name, type, icon } = req.body;
-    if (!name || !type) {
+    if (!name) {
       res.status(400);
-      throw new Error('Nome e tipo são obrigatórios');
+      throw new Error('Nome é obrigatório');
     }
 
     const category = await Category.create({

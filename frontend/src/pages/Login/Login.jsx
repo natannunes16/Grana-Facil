@@ -70,7 +70,7 @@ const Login = () => {
             </Button>
 
             <div className="gf-login-toggle">
-              Ainda não tem conta? 
+              Ainda não tem conta?{' '}
               <button type="button" onClick={() => setIsLogin(false)} className="gf-login-toggle-btn">
                 Crie agora
               </button>

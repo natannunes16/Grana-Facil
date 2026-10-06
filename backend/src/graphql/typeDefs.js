@@ -21,8 +21,27 @@ const typeDefs = gql`
     expensesByCategory: [ExpenseCategory!]!
   }
 
+  type Transaction {
+    id: ID!
+    description: String!
+    value: Float!
+    type: String!
+    date: String!
+    category: ID!
+    account: ID
+    user: ID!
+    paymentMethod: String
+    tags: String
+  }
+
   type Query {
     getDashboardSummary: DashboardSummary
+  }
+
+  type Mutation {
+    createTransaction(description: String!, value: Float!, type: String!, date: String!, category: ID!, account: ID, paymentMethod: String, tags: String): Transaction!
+    updateTransaction(id: ID!, description: String, value: Float, type: String, date: String, category: ID, account: ID, paymentMethod: String, tags: String): Transaction!
+    deleteTransaction(id: ID!): ID!
   }
 `;
 

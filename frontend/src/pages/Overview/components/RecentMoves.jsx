@@ -5,16 +5,8 @@ import { useFinancial } from '../../../context/FinancialContext';
 import { useNavigate } from 'react-router-dom';
 import './RecentMoves.css';
 
-const ICON_MAP = {
-  'Salário': Wallet,
-  'Mercado': ShoppingCart,
-  'Aluguel': Home,
-  'Faculdade': GraduationCap,
-  'Transporte': Train
-};
-
 const RecentMoves = () => {
-  const { transactions, formatCurrency } = useFinancial();
+  const { transactions, categories, formatCurrency } = useFinancial();
   const navigate = useNavigate();
   const [filter, setFilter] = useState('all');
 
@@ -47,12 +39,14 @@ const RecentMoves = () => {
       <div className="gf-rm-list">
         {recentTransactions.length === 0 && <div style={{textAlign:'center', color:'var(--color-text-muted)'}}>Nenhuma movimentação.</div>}
         {recentTransactions.map(m => {
-          const Icon = ICON_MAP[m.cat] || Wallet;
+          const catObj = categories.find(c => c.name === m.cat);
+          const displayIcon = catObj?.icon || '💰';
+          
           return (
             <div key={m.id} className="gf-rm-item">
               <div className="gf-rm-item-left">
-                <div className={`gf-rm-icon-box ${m.type}`}>
-                  <Icon size={20} />
+                <div className={`gf-rm-icon-box ${m.type}`} style={{ fontSize: '20px' }}>
+                  {displayIcon}
                 </div>
                 <div className="gf-rm-info">
                   <strong>{m.name}</strong>

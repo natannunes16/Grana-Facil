@@ -1,7 +1,54 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Card from '../../../components/Card/Card';
+import { useFinancial } from '../../../context/FinancialContext';
 
 const EvolutionChart = () => {
+  const { transactions, formatCurrency } = useFinancial();
+
+  const chartData = useMemo(() => {
+    const outTxs = transactions.filter(t => t.type === 'out');
+    const daysInMonth = 30; // Considerando Setembro para o mockup
+    
+    let dailyTotals = Array(daysInMonth).fill(0);
+    outTxs.forEach(t => {
+      let dayIdx = 0;
+      if (t.date.includes('T')) {
+        const dayStr = t.date.split('T')[0].split('-')[2];
+        dayIdx = parseInt(dayStr, 10) - 1;
+      } else {
+        const d = new Date(t.date);
+        dayIdx = d.getDate() - 1;
+      }
+      if (dayIdx >= 0 && dayIdx < daysInMonth) {
+        dailyTotals[dayIdx] += t.val;
+      }
+    });
+
+    const maxVal = Math.max(...dailyTotals, 1);
+    const avgVal = dailyTotals.reduce((a, b) => a + b, 0) / daysInMonth;
+    
+    let peakDay = 0;
+    let peakVal = 0;
+    dailyTotals.forEach((v, i) => {
+      if (v > peakVal) {
+        peakVal = v;
+        peakDay = i;
+      }
+    });
+
+    return { dailyTotals, maxVal, avgVal, peakDay, peakVal, daysInMonth };
+  }, [transactions]);
+
+  const svgWidth = 1000;
+  
+  const points = chartData.dailyTotals.map((val, i) => {
+    const x = (i / (chartData.daysInMonth - 1)) * svgWidth;
+    const y = 110 - (val / chartData.maxVal) * 90;
+    return { x, y, val, day: i + 1 };
+  });
+
+  const pathD = "M " + points.map(p => `${p.x} ${p.y}`).join(" L ");
+
   return (
     <Card style={{ padding: '24px', marginBottom: '32px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
@@ -10,40 +57,63 @@ const EvolutionChart = () => {
             <h3 style={{ margin: 0, fontSize: '1.25rem', color: 'var(--color-text-main)' }}>Evolução dos Gastos no Mês</h3>
             <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-secondary)', backgroundColor: '#E6F0FF', padding: '4px 8px', borderRadius: '12px' }}>Setembro 01 → 30</span>
           </div>
-          <span style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)' }}>Picos de desembolso identificados nos dias 01, 05, 06 e 07</span>
+          <span style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)' }}>Mapeamento de desembolso diário</span>
         </div>
         <div style={{ display: 'flex', gap: '16px', fontSize: '0.875rem' }}>
-          <span style={{ backgroundColor: '#F0F4F8', padding: '8px 16px', borderRadius: '8px', color: 'var(--color-text-muted)' }}>Média Diária: <strong style={{ color: 'var(--color-text-main)' }}>R$ 24,25</strong></span>
-          <span style={{ backgroundColor: '#FEE2E2', padding: '8px 16px', borderRadius: '8px', color: 'var(--color-text-muted)' }}>Pico: <strong style={{ color: '#E53E3E' }}>05/Set (R$ 250,00)</strong></span>
+          <span style={{ backgroundColor: '#F0F4F8', padding: '8px 16px', borderRadius: '8px', color: 'var(--color-text-muted)' }}>Média Diária: <strong style={{ color: 'var(--color-text-main)' }}>R$ {formatCurrency(chartData.avgVal)}</strong></span>
+          <span style={{ backgroundColor: '#FEE2E2', padding: '8px 16px', borderRadius: '8px', color: 'var(--color-text-muted)' }}>Pico: <strong style={{ color: '#E53E3E' }}>{String(chartData.peakDay + 1).padStart(2, '0')}/Set (R$ {formatCurrency(chartData.peakVal)})</strong></span>
         </div>
       </div>
 
       <div style={{ position: 'relative', height: '160px', width: '100%', padding: '20px 0' }}>
-        {/* SVG Line Chart */}
         <svg viewBox="0 0 1000 120" preserveAspectRatio="none" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
-          <path d="M 0 80 L 150 0 L 300 60 L 450 100 L 600 105 L 750 100 L 900 105 L 1000 105" fill="none" stroke="var(--color-secondary)" strokeWidth="3" />
+          <path d={pathD} fill="none" stroke="var(--color-secondary)" strokeWidth="3" />
           
-          <circle cx="0" cy="80" r="5" fill="white" stroke="var(--color-secondary)" strokeWidth="2" />
-          <circle cx="150" cy="0" r="6" fill="#E53E3E" stroke="white" strokeWidth="2" />
-          <circle cx="300" cy="60" r="5" fill="white" stroke="var(--color-primary)" strokeWidth="2" />
-          <circle cx="450" cy="100" r="3" fill="var(--color-secondary)" />
-          <circle cx="600" cy="105" r="3" fill="var(--color-secondary)" />
-          <circle cx="750" cy="100" r="3" fill="var(--color-secondary)" />
-          <circle cx="900" cy="105" r="3" fill="var(--color-secondary)" />
-          <circle cx="1000" cy="105" r="3" fill="var(--color-secondary)" />
+          {points.map((p, i) => {
+            if (p.val === 0) return <circle key={i} cx={p.x} cy={p.y} r="2" fill="var(--color-secondary)" opacity="0.3" />;
+            const isPeak = i === chartData.peakDay;
+            return (
+              <circle 
+                key={i} 
+                cx={p.x} 
+                cy={p.y} 
+                r={isPeak ? "6" : "4"} 
+                fill={isPeak ? "#E53E3E" : "white"} 
+                stroke={isPeak ? "white" : "var(--color-secondary)"} 
+                strokeWidth="2" 
+              />
+            );
+          })}
         </svg>
 
-        {/* Labels positioned absolute */}
-        <div style={{ position: 'absolute', left: '0', top: '0', fontSize: '0.65rem', fontWeight: 700, color: 'var(--color-secondary)' }}>01/Set: R$ 80</div>
-        <div style={{ position: 'absolute', left: '15%', top: '-20px', fontSize: '0.65rem', fontWeight: 700, color: '#E53E3E', backgroundColor: '#FEE2E2', padding: '2px 6px', borderRadius: '4px' }}>05/Set: Aluguel R$ 250</div>
-        <div style={{ position: 'absolute', left: '30%', top: '30px', fontSize: '0.65rem', fontWeight: 700, color: 'var(--color-text-main)' }}>06/Set: Faculdade R$ 120</div>
+        {/* Dynamic Labels */}
+        {points.filter(p => p.val > 0).map((p, i) => {
+          const isPeak = p.day - 1 === chartData.peakDay;
+          return (
+            <div 
+              key={i} 
+              style={{ 
+                position: 'absolute', 
+                left: `calc(${(p.x / svgWidth) * 100}% - 20px)`, 
+                top: `${(p.y / 120) * 100 - (isPeak ? 30 : 25)}%`, 
+                fontSize: '0.65rem', 
+                fontWeight: 700, 
+                color: isPeak ? '#E53E3E' : 'var(--color-text-main)',
+                backgroundColor: isPeak ? '#FEE2E2' : 'transparent',
+                padding: isPeak ? '2px 6px' : '0',
+                borderRadius: '4px',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              {String(p.day).padStart(2, '0')}/Set: R$ {formatCurrency(p.val)}
+            </div>
+          );
+        })}
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '16px', fontSize: '0.75rem', fontWeight: 600, color: 'var(--color-secondary)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '16px', fontSize: '0.75rem', fontWeight: 600, color: 'var(--color-text-muted)' }}>
         <span>01 Set</span>
-        <span style={{ color: '#E53E3E' }}>05 Set</span>
-        <span>06 Set</span>
-        <span style={{ color: 'var(--color-primary)' }}>07 Set</span>
+        <span>05 Set</span>
         <span>10 Set</span>
         <span>15 Set</span>
         <span>20 Set</span>

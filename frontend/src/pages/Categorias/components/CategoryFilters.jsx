@@ -12,24 +12,9 @@ const CategoryFilters = ({ currentTab, onTabChange }) => {
   return (
     <div className="gf-cat-filters-bar">
       <div className="gf-cat-tabs">
-        <button 
-          className={`gf-cat-tab ${currentTab === 'all' ? 'active' : ''}`}
-          onClick={() => onTabChange('all')}
-        >
+        <div className="gf-cat-tab active" style={{cursor: 'default'}}>
           Todas as categorias <span className="count">{categories.length}</span>
-        </button>
-        <button 
-          className={`gf-cat-tab ${currentTab === 'despesas' ? 'active' : ''}`}
-          onClick={() => onTabChange('despesas')}
-        >
-          Despesas (Saídas) <span className="count">{despesasCount}</span>
-        </button>
-        <button 
-          className={`gf-cat-tab ${currentTab === 'receitas' ? 'active' : ''}`}
-          onClick={() => onTabChange('receitas')}
-        >
-          Receitas (Entradas) <span className="count">{receitasCount}</span>
-        </button>
+        </div>
       </div>
 
       <div className="gf-cat-order">

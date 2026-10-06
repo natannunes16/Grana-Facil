@@ -3,15 +3,8 @@ import Card from '../../../components/Card/Card';
 import { Search, Edit2, Trash2, ShoppingCart, Home, GraduationCap, Train } from 'lucide-react';
 import { useFinancial } from '../../../context/FinancialContext';
 
-const ICON_MAP = {
-  'Mercado': ShoppingCart,
-  'Aluguel': Home,
-  'Faculdade': GraduationCap,
-  'Transporte': Train
-};
-
 const SaidasTable = () => {
-  const { transactions, formatCurrency, deleteTransaction } = useFinancial();
+  const { transactions, categories, formatCurrency, deleteTransaction } = useFinancial();
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState('Todas');
 
@@ -72,13 +65,15 @@ const SaidasTable = () => {
             <tr><td colSpan="6" style={{textAlign: 'center', padding: '24px'}}>Nenhuma saída encontrada.</td></tr>
           ) : (
             filtered.map(t => {
-            const Icon = ICON_MAP[t.cat] || ShoppingCart;
+            const catObj = categories.find(c => c.name === t.cat);
+            const displayIcon = catObj?.icon || '🛒';
+            
             return (
               <tr key={t.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
                 <td style={{ padding: '16px 24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <div style={{ width: 40, height: 40, borderRadius: 8, backgroundColor: '#E6F0FF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <Icon size={18} color="var(--color-secondary)" />
+                    <div style={{ width: 40, height: 40, borderRadius: 8, backgroundColor: '#E6F0FF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px' }}>
+                      {displayIcon}
                     </div>
                     <div>
                       <div style={{ fontWeight: 600, fontSize: '0.875rem', color: 'var(--color-text-main)' }}>{t.name}</div>

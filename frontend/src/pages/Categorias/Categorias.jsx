@@ -11,14 +11,7 @@ import NewCategoryModal from './components/NewCategoryModal';
 
 const Categorias = () => {
   const { categories } = useFinancial();
-  const [currentTab, setCurrentTab] = useState('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const filteredCategories = categories.filter(cat => {
-    if (currentTab === 'despesas') return cat.type === 'Despesa';
-    if (currentTab === 'receitas') return cat.type === 'Receita';
-    return true;
-  });
 
   return (
     <div className="gf-categorias-page">
@@ -32,8 +25,8 @@ const Categorias = () => {
 
       <div className="gf-categorias-content">
         <CategorySummary />
-        <CategoryFilters currentTab={currentTab} onTabChange={setCurrentTab} />
-        <CategoryGrid categories={filteredCategories} />
+        <CategoryFilters />
+        <CategoryGrid categories={categories} />
         <FinanceTip />
       </div>
 

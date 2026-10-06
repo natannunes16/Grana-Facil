@@ -4,12 +4,7 @@ import { Edit2, ShoppingCart, Home, GraduationCap, Train } from 'lucide-react';
 import { useFinancial } from '../../../context/FinancialContext';
 import './CategoryLimits.css';
 
-const ICON_MAP = {
-  'Mercado': ShoppingCart,
-  'Aluguel': Home,
-  'Faculdade': GraduationCap,
-  'Transporte': Train
-};
+
 
 const CategoryLimits = () => {
   const { expensesByCategory, formatCurrency, categories } = useFinancial();
@@ -32,13 +27,13 @@ const CategoryLimits = () => {
       statusType = 'danger';
     }
 
-    const Icon = categoryInfo && categoryInfo.icon ? () => <span>{categoryInfo.icon}</span> : (ICON_MAP[expense.name] || ShoppingCart);
+    const displayIcon = categoryInfo?.icon || '💰';
 
     return {
       id: idx,
       name: expense.name,
       desc: categoryInfo ? categoryInfo.type : 'Despesa',
-      icon: Icon,
+      icon: displayIcon,
       limit: formatCurrency(limit),
       spent: formatCurrency(spent),
       available: formatCurrency(available),
@@ -67,8 +62,8 @@ const CategoryLimits = () => {
           <Card key={item.id} className="gf-limit-card">
             <div className="gf-limit-card-header">
               <div className="title-area">
-                <div className={`icon-wrap ${item.statusType === 'warning' ? 'bg-blue' : 'bg-green'}`}>
-                  <item.icon size={20} />
+                <div className={`icon-wrap ${item.statusType === 'warning' ? 'bg-blue' : 'bg-green'}`} style={{fontSize: '20px'}}>
+                  {item.icon}
                 </div>
                 <div>
                   <h3>{item.name}</h3>

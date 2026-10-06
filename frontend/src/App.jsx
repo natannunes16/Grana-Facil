@@ -10,6 +10,7 @@ import Entradas from './pages/Entradas/Entradas';
 import NovaMovimentacao from './pages/NovaMovimentacao/NovaMovimentacao';
 import Categorias from './pages/Categorias/Categorias';
 import Orcamento from './pages/Orcamento/Orcamento';
+import NovoOrcamento from './pages/NovoOrcamento/NovoOrcamento';
 import Overview from './pages/Overview/Overview';
 import Saidas from './pages/Saidas/Saidas';
 import Relatorios from './pages/Relatorios/Relatorios';
@@ -57,6 +58,7 @@ function App() {
                 <Route path="/nova-movimentacao" element={<NovaMovimentacao />} />
                 <Route path="/saidas" element={<Saidas />} />
                 <Route path="/orcamento" element={<Orcamento />} />
+                <Route path="/novo-orcamento" element={<NovoOrcamento />} />
                 <Route path="/categorias" element={<Categorias />} />
                 <Route path="/relatorios" element={<Relatorios />} />
                 <Route path="/configuracoes" element={<Configuracoes />} />

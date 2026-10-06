@@ -10,7 +10,7 @@ const EMOJI_OPTIONS = ['🏠', '🛒', '🎓', '🚗', '🎮', '💡', '💰', '
 const NewCategoryModal = ({ isOpen, onClose }) => {
   const { addCategory } = useFinancial();
   const [name, setName] = useState('');
-  const [type, setType] = useState('Despesa');
+  const [type, setType] = useState('Ambos');
   const [icon, setIcon] = useState('🏠');
 
   if (!isOpen) return null;
@@ -21,7 +21,7 @@ const NewCategoryModal = ({ isOpen, onClose }) => {
 
     addCategory({
       name: name.trim(),
-      type,
+      type: 'Ambos',
       icon,
       moves: 0,
       value: 'R$ 0,00'
@@ -29,7 +29,7 @@ const NewCategoryModal = ({ isOpen, onClose }) => {
 
     // Reset and close
     setName('');
-    setType('Despesa');
+    setType('Ambos');
     setIcon('🏠');
     onClose();
   };
@@ -52,20 +52,6 @@ const NewCategoryModal = ({ isOpen, onClose }) => {
             onChange={(e) => setName(e.target.value)}
             required
           />
-
-          <div className="gf-form-group">
-            <label className="gf-input-label">Tipo da categoria</label>
-            <div className="gf-radio-group">
-              <label className={`gf-radio-card ${type === 'Despesa' ? 'selected out' : ''}`}>
-                <input type="radio" name="catType" value="Despesa" checked={type === 'Despesa'} onChange={(e) => setType(e.target.value)} />
-                <span className="radio-label">Despesa</span>
-              </label>
-              <label className={`gf-radio-card ${type === 'Receita' ? 'selected in' : ''}`}>
-                <input type="radio" name="catType" value="Receita" checked={type === 'Receita'} onChange={(e) => setType(e.target.value)} />
-                <span className="radio-label">Receita</span>
-              </label>
-            </div>
-          </div>
 
           <div className="gf-form-group">
             <label className="gf-input-label">Ícone</label>
